@@ -2,7 +2,7 @@ conalert.py
 
 USE THIS PROGRAM AT YOUR OWN RISK.THERE IS NO GUARANTEE THAT IT WORKS
 
-Creates a popup window when the number of network connections exceeds a certain value. Useful for cybersecueity purposes.
+Creates a popup window when the number of network connections exceeds a certain value. Useful for cybersecurity purposes.
 
 Designed for linux and my situation but may be useful for others.
 
