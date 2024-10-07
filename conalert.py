@@ -9,6 +9,7 @@
 # dougalite@gmail.com
 # Started 7-10-2024
 
+#Requirements - espeak, to install type "sudo apt install espeak -y" in a terminal prior to running the program
 
 import time
 import os
@@ -16,20 +17,28 @@ from subprocess import Popen
 from subprocess import PIPE
 
 
-
 toomanyconnections=80
-delay=3
+delay=30
 print("Checking network connections.")
+shownmessage=False
+loop=1
 while 1:
 	with Popen(['netstat', "-t"],stdout=PIPE) as proc:
-		count=str(proc.stdout.read()).count(":")
+		count=str(proc.stdout.read()).count("ESTAB")
+	alertmsg="ALERT!!!!  There are "+str(count)+" connections"
+	print(alertmsg)
+	print("Loop= ",str(loop))
+	loop+=1
 	if count>toomanyconnections:
-		alertmsg="ALERT!!!!  There are "+str(count)+" connections"
-		with Popen(['zenity', "--info","--text="+alertmsg],stdout=PIPE) as proc2:
-			streamdata = proc2.communicate()[0]
-			while 0!=proc2.returncode:
+		Popen(['espeak', alertmsg])
+		if not shownmessage:
+			shownmessage=True
+			with Popen(['zenity', "--info","--text="+alertmsg],stdout=PIPE) as proc2:
+#				streamdata = proc2.communicate()[0]
+#				while 0!=proc2.returncode:
+#					pass
 				time.sleep(0.5)
-			exit(0)
+			
 	time.sleep(delay)
 
 
