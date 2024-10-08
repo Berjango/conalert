@@ -15,7 +15,7 @@ import time
 import os
 from subprocess import Popen
 from subprocess import PIPE
-
+import datetime
 
 toomanyconnections=80
 delay=30
@@ -26,8 +26,7 @@ while 1:
 	with Popen(['netstat', "-t"],stdout=PIPE) as proc:
 		count=str(proc.stdout.read()).count("ESTAB")
 	alertmsg="ALERT!!!!  There are "+str(count)+" connections"
-	print(alertmsg)
-	print("Loop= ",str(loop))
+	print(alertmsg+" at "+str(datetime.datetime.now())+" iteration "+str(loop))
 	loop+=1
 	if count>toomanyconnections:
 		Popen(['espeak', alertmsg])
