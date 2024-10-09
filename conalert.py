@@ -13,12 +13,15 @@
 
 import time
 import os
+from pathlib import Path
 from subprocess import Popen
 from subprocess import PIPE
 import datetime
 
 toomanyconnections=80
 delay=30
+logfile="conalert.log"
+f=Path(logfile)
 print("Checking network connections.")
 shownmessage=False
 loop=1
@@ -26,7 +29,9 @@ while 1:
 	with Popen(['netstat', "-t"],stdout=PIPE) as proc:
 		count=str(proc.stdout.read()).count("ESTAB")
 	alertmsg="ALERT!!!!  There are "+str(count)+" connections"
-	print(alertmsg+" at "+str(datetime.datetime.now())+" iteration "+str(loop))
+	themsg=alertmsg+" at "+str(datetime.datetime.now())+" iteration "+str(loop)
+	print(themsg)
+	f.open("a").write(themsg+os.linesep)
 	loop+=1
 	if count>toomanyconnections:
 		Popen(['espeak', alertmsg])
