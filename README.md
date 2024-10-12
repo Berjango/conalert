@@ -10,5 +10,7 @@ to install type "sh install" in a terminal in the program folder.
 
 to run type "python3 conalert.py" in the program folder.
 
+Alternatively ,just type "sh run" to install the program and then run it.
+
 
 LICENSE - as free as it gets.Good luck.
