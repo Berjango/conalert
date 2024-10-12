@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sh install
+python3 conalert.py
